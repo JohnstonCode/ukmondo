@@ -2,6 +2,8 @@
 
 namespace Ukmondo;
 
+use Symfony\Component\HttpFoundation\{Request, Response};
+
 class Application
 {
     public $container;
@@ -21,11 +23,18 @@ class Application
         foreach ($this->routes as $route) {
             if ($route['path'] === $uri && in_array($method, $route['method'])) {
                 list($controller, $func) = preg_split('/:/', $route['controller']);
-                call_user_func_array([$this->container[$controller], $func], []);
-                return;
+
+                $request = Request::createFromGlobals();
+                $response = new Response(
+                    '',
+                    Response::HTTP_OK,
+                    ['content-type' => 'text/html']
+                );
+
+                return call_user_func_array([$this->container[$controller], $func], [$request, $response]);
             }
         }
 
-        $this->container['NotFoundController']->run();
+        return $this->container['NotFoundController']->run();
     }
 }

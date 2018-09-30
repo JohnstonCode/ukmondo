@@ -2,11 +2,18 @@
 
 namespace Ukmondo\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class NotFoundController
 {
     public function run()
     {
-        header('HTTP/1.0 404 Not Found', true, 404);
-        echo 'NOT FOUND';
+        $response = new Response(
+            '',
+            Response::HTTP_NOT_FOUND,
+            ['content-type' => 'text/html']
+        );
+        
+        return $response->send();
     }
 }
