@@ -25,6 +25,14 @@ $app->container['View'] = function () {
         'cache' => false
     ]);
 
+    $isCurrentPath = new Twig_Function('is_current_path', function ($path) {
+        $currentPath = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
+
+        return $path === $currentPath;
+    });
+
+    $twig->addFunction($isCurrentPath);
+
     return $twig;
 };
 
