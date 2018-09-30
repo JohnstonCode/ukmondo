@@ -15,7 +15,7 @@ class HomeController
 
     public function get(Request $request, Response $response)
     {
-        $response->setContent('Hello World');
+        $response->setContent($this->view->render('@pages/home.twig'));
         return $response->send();
     }
 }

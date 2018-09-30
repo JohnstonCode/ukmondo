@@ -17,8 +17,12 @@ $app->container['NotFoundController'] = function ($controller) {
 
 $app->container['View'] = function () {
     $loader = new Twig_Loader_Filesystem(__DIR__ . '/../src/Views');
+    $loader->addPath(__DIR__ . '/../src/Views/partials', 'partials');
+    $loader->addPath(__DIR__ . '/../src/Views/pages', 'pages');
+
     $twig = new Twig_Environment($loader, [
-        'cache' => __DIR__ . '/../var/views',
+        // 'cache' => __DIR__ . '/../var/views',
+        'cache' => false
     ]);
 
     return $twig;
