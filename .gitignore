@@ -1,3 +1,2 @@
-/vendor/
-.sass-cache
-/var/views/*
+node_modules
+dist
